@@ -178,7 +178,7 @@ export default async function LoftDetailPage({ params }: { params: Promise<{ id:
 
                   <div className="space-y-4">
                     <div>
-                      <p className="text-sm text-muted-foreground">{t('owners.ownershipType', { ns: 'common' })}</p>
+                      <p className="text-sm text-muted-foreground">{t('ownershipType', { ns: 'owners' })}</p>
                       <p className="font-medium capitalize">{t('lofts:additionalInfo.company')}</p>
                     </div>
                   </div>

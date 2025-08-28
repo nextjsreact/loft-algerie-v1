@@ -72,7 +72,7 @@ export async function GET() {
 
     // Prepare filter options from real data
     const regions = [
-      { value: 'all', label: 'All Regions' },
+      { value: 'all', label: 'allRegions' }, // Will be translated on client side
       ...(zoneAreasData || []).map(zone => ({
         value: zone.id,
         label: zone.name
@@ -80,7 +80,7 @@ export async function GET() {
     ]
 
     const owners = [
-      { value: 'all', label: 'All Owners' },
+      { value: 'all', label: 'allOwners' }, // Will be translated on client side
       ...(ownersData || []).map(owner => ({
         value: owner.id,
         label: owner.name

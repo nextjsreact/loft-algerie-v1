@@ -1,304 +1,477 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { CheckCircle, Clock, AlertTriangle, Calendar, User, Building } from "lucide-react"
-import Link from "next/link"
-import { useTranslation } from "@/lib/i18n/context"
+import { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { 
+  ClipboardList,
+  Bell,
+  MessageCircle,
+  CheckCircle,
+  Clock,
+  AlertTriangle,
+  RefreshCw,
+  User,
+  Calendar
+} from "lucide-react";
+import { createClient } from "@/utils/supabase/client";
+import { toast } from "sonner";
+import { format } from "date-fns";
+import { useTranslation } from "@/lib/i18n/context";
 
-interface Task {
-  id: string
-  title: string
-  description?: string
-  status: 'todo' | 'in_progress' | 'completed'
-  due_date?: string
-  loft?: {
-    name: string
-  }
+interface RecentTask {
+  id: string;
+  title: string;
+  status: string;
+  due_date?: string;
+  assigned_user?: { full_name: string } | null;
+  loft?: { name: string } | null;
+  priority?: 'low' | 'medium' | 'high';
 }
 
-interface MemberDashboardProps {
-  userTasks: Task[]
-  userName: string
-  userRole: string
+interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  type: 'info' | 'warning' | 'success' | 'error';
+  created_at: string;
+  read: boolean;
 }
 
-export function MemberDashboard({ userTasks, userName, userRole }: MemberDashboardProps) {
+interface Conversation {
+  id: string;
+  title: string;
+  last_message: string;
+  last_message_at: string;
+  unread_count: number;
+  participants: string[];
+}
+
+interface MemberStats {
+  myTasks: number;
+  completedTasks: number;
+  unreadNotifications: number;
+  activeConversations: number;
+}
+
+export function MemberDashboard() {
   const { t } = useTranslation();
-  const todoTasks = userTasks.filter(task => task.status === 'todo')
-  const inProgressTasks = userTasks.filter(task => task.status === 'in_progress')
-  const completedTasks = userTasks.filter(task => task.status === 'completed')
   
-  const overdueTasks = userTasks.filter(task => {
-    if (!task.due_date) return false
-    return new Date(task.due_date) < new Date() && task.status !== 'completed'
-  })
+  const [stats, setStats] = useState<MemberStats>({
+    myTasks: 0,
+    completedTasks: 0,
+    unreadNotifications: 0,
+    activeConversations: 0
+  });
+  
+  const [recentTasks, setRecentTasks] = useState<RecentTask[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  
+  const supabase = createClient();
 
-  const upcomingTasks = userTasks.filter(task => {
-    if (!task.due_date) return false
-    const dueDate = new Date(task.due_date)
-    const today = new Date()
-    const threeDaysFromNow = new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000))
-    return dueDate >= today && dueDate <= threeDaysFromNow && task.status !== 'completed'
-  })
+  useEffect(() => {
+    fetchMemberData();
+  }, []);
 
-  const taskStatusTranslationKeys = {
-    todo: 'dashboard.todo',
-    in_progress: 'dashboard.inProgress',
-    completed: 'dashboard.completed',
-    unknown: 'dashboard.unknown', // Added this key
+  const fetchMemberData = async () => {
+    try {
+      setLoading(true);
+
+      // Mock data for member dashboard - replace with real API calls
+      setStats({
+        myTasks: 8,
+        completedTasks: 15,
+        unreadNotifications: 3,
+        activeConversations: 2
+      });
+
+      // Mock recent tasks assigned to member - using translation keys
+      setRecentTasks([
+        {
+          id: "1",
+          title: t("dashboard:mockData.tasks.monthlyCleaningHydra"),
+          status: "in_progress",
+          due_date: "2024-08-22",
+          assigned_user: { full_name: t("dashboard:mockData.me") },
+          loft: { name: t("dashboard:mockData.lofts.artisticHydra") },
+          priority: "high"
+        },
+        {
+          id: "2", 
+          title: t("dashboard:mockData.tasks.equipmentCheck"),
+          status: "todo",
+          due_date: "2024-08-25",
+          assigned_user: { full_name: t("dashboard:mockData.me") },
+          loft: { name: t("dashboard:mockData.lofts.modernDowntown") },
+          priority: "medium"
+        },
+        {
+          id: "3",
+          title: t("dashboard:mockData.tasks.monthlyReport"),
+          status: "completed",
+          due_date: "2024-08-15",
+          assigned_user: { full_name: t("dashboard:mockData.me") },
+          loft: { name: t("dashboard:mockData.lofts.industrialKouba") },
+          priority: "low"
+        },
+        {
+          id: "4",
+          title: t("dashboard:mockData.tasks.preventiveMaintenance"),
+          status: "todo",
+          due_date: "2024-08-28",
+          assigned_user: { full_name: t("dashboard:mockData.me") },
+          loft: { name: t("dashboard:mockData.lofts.artisticHydra") },
+          priority: "medium"
+        }
+      ]);
+
+      // Mock notifications
+      setNotifications([
+        {
+          id: "1",
+          title: t("dashboard:mockData.notifications.newTaskAssigned.title"),
+          message: t("dashboard:mockData.notifications.newTaskAssigned.message"),
+          type: "info",
+          created_at: "2024-08-20T10:30:00Z",
+          read: false
+        },
+        {
+          id: "2",
+          title: t("dashboard:mockData.notifications.taskDueSoon.title"),
+          message: t("dashboard:mockData.notifications.taskDueSoon.message"),
+          type: "warning",
+          created_at: "2024-08-20T09:15:00Z",
+          read: false
+        },
+        {
+          id: "3",
+          title: t("dashboard:mockData.notifications.taskCompleted.title"),
+          message: t("dashboard:mockData.notifications.taskCompleted.message"),
+          type: "success",
+          created_at: "2024-08-19T16:45:00Z",
+          read: true
+        }
+      ]);
+
+      // Mock conversations
+      setConversations([
+        {
+          id: "1",
+          title: t("dashboard:mockData.conversations.maintenanceTeam.title"),
+          last_message: t("dashboard:mockData.conversations.maintenanceTeam.lastMessage"),
+          last_message_at: "2024-08-20T14:30:00Z",
+          unread_count: 2,
+          participants: ["Ahmed", "Fatima", t("dashboard:mockData.me")]
+        },
+        {
+          id: "2",
+          title: t("dashboard:mockData.conversations.techSupport.title"),
+          last_message: t("dashboard:mockData.conversations.techSupport.lastMessage"),
+          last_message_at: "2024-08-20T11:20:00Z",
+          unread_count: 0,
+          participants: [t("dashboard:mockData.conversations.techSupport.title"), t("dashboard:mockData.me")]
+        }
+      ]);
+
+      setLastUpdated(new Date());
+
+    } catch (error) {
+      console.error("Error fetching member data:", error);
+      toast.error(t("dashboard:loadingError"));
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const getStatusColor = (status: string) => {
+  const getTaskStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 text-green-800'
-      case 'in_progress': return 'bg-blue-100 text-blue-800'
-      case 'todo': return 'bg-gray-100 text-gray-800'
-      default: return 'bg-gray-100 text-gray-800'
+      case 'completed':
+        return "bg-green-100 text-green-800 border-green-200";
+      case 'in_progress':
+        return "bg-blue-100 text-blue-800 border-blue-200";
+      case 'todo':
+        return "bg-gray-100 text-gray-800 border-gray-200";
+      default:
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
-  }
+  };
 
-  const getStatusIcon = (status: string) => {
+  const getTaskStatusText = (status: string) => {
     switch (status) {
-      case 'completed': return <CheckCircle className="h-4 w-4" />
-      case 'in_progress': return <Clock className="h-4 w-4" />
-      case 'todo': return <Calendar className="h-4 w-4" />
-      default: return <Calendar className="h-4 w-4" />
+      case 'completed':
+        return t("dashboard:tasks.status.completed");
+      case 'in_progress':
+        return t("dashboard:tasks.status.inProgress");
+      case 'todo':
+        return t("dashboard:tasks.status.todo");
+      default:
+        return status;
     }
+  };
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high':
+        return "text-red-600";
+      case 'medium':
+        return "text-orange-600";
+      case 'low':
+        return "text-green-600";
+      default:
+        return "text-gray-600";
+    }
+  };
+
+  const getNotificationIcon = (type: string) => {
+    switch (type) {
+      case 'warning':
+        return <AlertTriangle className="h-4 w-4 text-orange-500" />;
+      case 'success':
+        return <CheckCircle className="h-4 w-4 text-green-500" />;
+      case 'error':
+        return <AlertTriangle className="h-4 w-4 text-red-500" />;
+      default:
+        return <Bell className="h-4 w-4 text-blue-500" />;
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="space-y-8 p-6">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-64 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-96"></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-32 bg-gray-200 rounded-xl animate-pulse"></div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="space-y-6">
-      {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border">
-        <div className="flex items-center gap-4">
-          <div className="bg-blue-100 p-3 rounded-full">
-            <User className="h-6 w-6" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t('dashboard.welcomeBack', { name: userName })}</h1>
-            <p className="text-gray-600">{t('dashboard.pendingTasks', { todo: todoTasks.length, inProgress: inProgressTasks.length })}</p>
-          </div>
-        </div>
+    <div className="space-y-8 p-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+      {/* Header */}
+      <div className="space-y-2">
+        <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          {t("dashboard:memberTitle")}
+        </h1>
+        <p className="text-lg text-muted-foreground">
+          {t("dashboard:memberSubtitle")}
+        </p>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">{t('dashboard.toDo')}</p>
-                <p className="text-2xl font-bold text-gray-900">{todoTasks.length}</p>
+                <p className="text-blue-100 text-sm font-medium">{t("dashboard:myTasks")}</p>
+                <p className="text-3xl font-bold">{stats.myTasks}</p>
+                <p className="text-blue-100 text-xs mt-1">
+                  {recentTasks.filter(t => t.status === 'in_progress').length} {t("dashboard:inProgress")}
+                </p>
               </div>
-              <div className="bg-gray-100 p-2 rounded-full">
-                <Calendar className="h-5 w-5 text-gray-600" />
-              </div>
+              <ClipboardList className="h-8 w-8 text-blue-200" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-green-500 to-green-600 text-white">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-blue-600">{t('dashboard.inProgress')}</p>
-                <p className="text-2xl font-bold text-blue-900">{inProgressTasks.length}</p>
+                <p className="text-green-100 text-sm font-medium">{t("dashboard:completedTasks")}</p>
+                <p className="text-3xl font-bold">{stats.completedTasks}</p>
+                <p className="text-green-100 text-xs mt-1">
+                  {t("dashboard:thisMonth")}
+                </p>
               </div>
-              <div className="bg-blue-100 p-2 rounded-full">
-                <Clock className="h-5 w-5 text-blue-600" />
-              </div>
+              <CheckCircle className="h-8 w-8 text-green-200" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-orange-500 to-red-500 text-white">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-green-600">{t('dashboard.completed')}</p>
-                <p className="text-2xl font-bold text-green-900">{completedTasks.length}</p>
+                <p className="text-orange-100 text-sm font-medium">{t("dashboard:notifications")}</p>
+                <p className="text-3xl font-bold">{stats.unreadNotifications}</p>
+                <p className="text-orange-100 text-xs mt-1">
+                  {t("dashboard:unread")}
+                </p>
               </div>
-              <div className="bg-green-100 p-2 rounded-full">
-                <CheckCircle className="h-5 w-5 text-green-600" />
-              </div>
+              <Bell className="h-8 w-8 text-orange-200" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-red-600">{t('dashboard.overdue')}</p>
-                <p className="text-2xl font-bold text-red-900">{overdueTasks.length}</p>
+                <p className="text-purple-100 text-sm font-medium">{t("dashboard:conversations")}</p>
+                <p className="text-3xl font-bold">{stats.activeConversations}</p>
+                <p className="text-purple-100 text-xs mt-1">
+                  {conversations.reduce((sum, c) => sum + c.unread_count, 0)} {t("dashboard:newMessages")}
+                </p>
               </div>
-              <div className="bg-red-100 p-2 rounded-full">
-                <AlertTriangle className="h-5 w-5 text-red-600" />
-              </div>
+              <MessageCircle className="h-8 w-8 text-purple-200" />
             </div>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Urgent Tasks */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-orange-500" />
-              {t('dashboard.urgentTasks')}
+      {/* Main Content Grid */}
+      <div className="grid gap-8 lg:grid-cols-3">
+        {/* My Tasks - Takes 2 columns */}
+        <Card className="lg:col-span-2 border-0 shadow-xl">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="flex items-center gap-2 text-xl font-bold">
+              <ClipboardList className="h-6 w-6 text-blue-600" />
+              {t("dashboard:myTasks")}
             </CardTitle>
+            <div className="flex items-center gap-2">
+              {lastUpdated && (
+                <span className="text-xs text-gray-500">
+                  {t("dashboard:updated")} {lastUpdated.toLocaleTimeString()}
+                </span>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={fetchMemberData}
+                disabled={loading}
+              >
+                <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
-            {overdueTasks.length === 0 && upcomingTasks.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                <CheckCircle className="h-12 w-12 mx-auto mb-3 text-green-500" />
-                <p>{t('dashboard.noUrgentTasks')}</p>
-                <p className="text-sm">{t('dashboard.allCaughtUp')}</p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {overdueTasks.map((task) => (
-                  <div key={task.id} className="p-3 border border-red-200 rounded-lg bg-red-50">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h4 className="font-medium text-red-900">{task.title}</h4>
-                        {task.description && (
-                          <p className="text-sm text-red-700 mt-1">{task.description}</p>
-                        )}
-                        <div className="flex items-center gap-2 mt-2">
-                          {task.loft && (
-                            <Badge variant="outline" className="text-xs">
-                              <Building className="h-3 w-3 mr-1" />
-                              {task.loft.name}
-                            </Badge>
-                          )}
-                          <Badge variant="destructive" className="text-xs">
-                            {t('dashboard.overdue')}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                
-                {upcomingTasks.map((task) => (
-                  <div key={task.id} className="p-3 border border-orange-200 rounded-lg bg-orange-50">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h4 className="font-medium text-orange-900">{task.title}</h4>
-                        {task.description && (
-                          <p className="text-sm text-orange-700 mt-1">{task.description}</p>
-                        )}
-                        <div className="flex items-center gap-2 mt-2">
-                          {task.loft && (
-                            <Badge variant="outline" className="text-xs">
-                              <Building className="h-3 w-3 mr-1" />
-                              {task.loft.name}
-                            </Badge>
-                          )}
-                          <Badge variant="secondary" className="text-xs">
-                            {t('dashboard.due')}: {new Date(task.due_date!).toLocaleDateString()}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* My Recent Tasks */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Clock className="h-5 w-5 text-blue-500" />
-              {t('dashboard.myRecentTasks')}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {userTasks.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                <Calendar className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                <p>{t('dashboard.noTasksAssigned')}</p>
-                <p className="text-sm">{t('dashboard.noTasksYet')}</p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {userTasks.slice(0, 5).map((task) => (
-                  <div key={task.id} className="flex items-center justify-between p-3 border rounded-lg">
-                    <div className="flex items-center gap-3">
-                      {getStatusIcon(task.status)}
-                      <div>
-                        <h4 className="font-medium">{task.title}</h4>
-                        {task.loft && (
-                          <p className="text-sm text-gray-600 flex items-center gap-1">
-                            <Building className="h-3 w-3" />
-                            {task.loft.name}
-                          </p>
-                        )}
-                      </div>
-                    </div>
+            <div className="space-y-4">
+              {recentTasks.map((task) => (
+                <div key={task.id} className="flex items-center justify-between p-4 rounded-lg border bg-gradient-to-r from-gray-50 to-blue-50 hover:shadow-md transition-all">
+                  <div className="space-y-2 flex-1">
                     <div className="flex items-center gap-2">
-                      <Badge className={getStatusColor(task.status)}>
-                        {t(taskStatusTranslationKeys[task.status])}
-                      </Badge>
-                      {task.due_date && (
-                        <span className="text-xs text-gray-500">
-                          {new Date(task.due_date).toLocaleDateString()}
+                      <p className="text-sm font-medium leading-none">{task.title}</p>
+                      {task.priority && (
+                        <span className={`text-xs font-medium ${getPriorityColor(task.priority)}`}>
+                          ●
                         </span>
                       )}
                     </div>
+                    <p className="text-sm text-muted-foreground">
+                      {task.loft?.name}
+                    </p>
+                    {task.due_date && (
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <Calendar className="h-3 w-3" />
+                        {t("dashboard:bills.due")}: {format(new Date(task.due_date), "d MMM yyyy")}
+                      </div>
+                    )}
                   </div>
-                ))}
-              </div>
-            )}
-            
-            {userTasks.length > 0 && (
-              <div className="mt-4 text-center">
-                <Button variant="outline" asChild>
-                  <Link href="/tasks">{t('dashboard.viewAllMyTasks')}</Link>
-                </Button>
-              </div>
-            )}
+                  <div className="flex flex-col items-end gap-2">
+                    <Badge className={getTaskStatusColor(task.status)}>
+                      {getTaskStatusText(task.status)}
+                    </Badge>
+                    {task.status !== 'completed' && (
+                      <Button size="sm" variant="outline" className="text-xs">
+                        {t("dashboard:viewDetails")}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Notifications */}
+        <Card className="border-0 shadow-xl">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-xl font-bold">
+              <Bell className="h-6 w-6 text-orange-600" />
+              {t("dashboard:notifications")}
+            </CardTitle>
+            <CardDescription>{t("dashboard:latestUpdates")}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {notifications.map((notification) => (
+                <div
+                  key={notification.id}
+                  className={`p-3 rounded-lg border transition-all hover:shadow-sm ${
+                    notification.read ? 'bg-gray-50' : 'bg-blue-50 border-blue-200'
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    {getNotificationIcon(notification.type)}
+                    <div className="flex-1 space-y-1">
+                      <p className={`text-sm font-medium ${!notification.read ? 'text-blue-900' : 'text-gray-900'}`}>
+                        {notification.title}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {notification.message}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {format(new Date(notification.created_at), "d MMM, HH:mm")}
+                      </p>
+                    </div>
+                    {!notification.read && (
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Quick Actions */}
-      <Card>
+      {/* Conversations */}
+      <Card className="border-0 shadow-xl">
         <CardHeader>
-          <CardTitle>{t('dashboard.quickActions')}</CardTitle>
+          <CardTitle className="flex items-center gap-2 text-xl font-bold">
+            <MessageCircle className="h-6 w-6 text-purple-600" />
+            {t("dashboard:recentConversations")}
+          </CardTitle>
+          <CardDescription>{t("dashboard:teamMessages")}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Button variant="outline" asChild className="h-auto p-4">
-              <Link href="/tasks" className="flex flex-col items-center gap-2">
-                <Calendar className="h-6 w-6" />
-                <span>{t('dashboard.viewMyTasks')}</span>
-              </Link>
-            </Button>
-            
-            <Button variant="outline" asChild className="h-auto p-4">
-              <Link href="/profile" className="flex flex-col items-center gap-2">
-                <User className="h-6 w-6" />
-                <span>{t('dashboard.myProfile')}</span>
-              </Link>
-            </Button>
-            
-            <Button variant="outline" asChild className="h-auto p-4">
-              <Link href="/help" className="flex flex-col items-center gap-2">
-                <AlertTriangle className="h-6 w-6" />
-                <span>{t('dashboard.needHelp')}</span>
-              </Link>
-            </Button>
+          <div className="grid gap-4 md:grid-cols-2">
+            {conversations.map((conversation) => (
+              <div
+                key={conversation.id}
+                className="p-4 rounded-lg border bg-gradient-to-r from-gray-50 to-purple-50 hover:shadow-md transition-all cursor-pointer"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="font-semibold text-gray-900">{conversation.title}</h4>
+                  {conversation.unread_count > 0 && (
+                    <Badge variant="destructive" className="text-xs">
+                      {conversation.unread_count}
+                    </Badge>
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
+                  {conversation.last_message}
+                </p>
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{conversation.participants.join(", ")}</span>
+                  <span>{format(new Date(conversation.last_message_at), "d MMM, HH:mm")}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

@@ -4,7 +4,7 @@ import type { LoftOwner } from "@/lib/types"
 import { OwnersWrapper } from "@/components/owners/owners-wrapper"
 
 export default async function OwnersPage() {
-  const session = await requireRole(["admin"])
+  const session = await requireRole(["admin", "manager"])
   const supabase = await createClient()
 
   const { data: ownersData, error } = await supabase

@@ -35,5 +35,9 @@
   "maintenance": "Maintenance",
   "noLoftsFound": "Aucun loft trouvé",
   "noLoftsFoundDescription": "Aucun loft ne correspond à vos critères de recherche.",
-  "loadingOwners": "Chargement des propriétaires..."
+  "loadingOwners": "Chargement des propriétaires...",
+  "ownersSelected": "{{count}} propriétaire(s) sélectionné(s)",
+  "clearAll": "Tout effacer",
+  "selectAll": "Tout sélectionner",
+  "viewDetails": "Voir les détails"
 }

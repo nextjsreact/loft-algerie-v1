@@ -25,6 +25,10 @@
     }
   },
   "sections": {
+    "executive": {
+      "title": "Executive",
+      "description": "Executive dashboard and key performance indicators"
+    },
     "reservations": {
       "title": "Reservations",
       "description": "Manage your reservations and availability"

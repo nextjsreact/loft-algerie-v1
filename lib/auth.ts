@@ -119,7 +119,7 @@ export async function login(email: string, password: string): Promise<{ success:
   }
 
   // If login is successful, redirect to home page
-  redirect('/'); 
+  redirect('/');
   return { success: true }
 }
 

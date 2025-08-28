@@ -29,12 +29,19 @@ interface FilterPanelProps {
 export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions }: FilterPanelProps) {
   const { t } = useTranslation(['availability', 'common'])
 
-  // Use real data from database
-  const regions = filterOptions.regions.length > 0 ? filterOptions.regions : [
+  // Use real data from database and translate labels
+  const regions = filterOptions.regions.length > 0 ? filterOptions.regions.map(region => ({
+    ...region,
+    label: region.label === 'allRegions' ? t('availability:allRegions') : region.label
+  })) : [
     { value: 'all', label: t('availability:allRegions') }
   ]
 
-  const owners = filterOptions.owners.length > 0 ? filterOptions.owners.slice(1) : [] // Remove 'all' option for multi-select
+  // Use real data from database and translate labels, remove 'all' option for multi-select
+  const owners = filterOptions.owners.length > 0 ? filterOptions.owners.slice(1).map(owner => ({
+    ...owner,
+    label: owner.label === 'allOwners' ? t('availability:allOwners') : owner.label
+  })) : []
 
   const handleFilterChange = (key: string, value: any) => {
     onFiltersChange({
@@ -176,7 +183,7 @@ export function FilterPanel({ filters, onFiltersChange, isLoading, filterOptions
         <div className="space-y-3">
           <Label className="text-sm font-medium flex items-center gap-2">
             <User className="h-4 w-4 text-purple-600" />
-            {t('availability:owners')}
+            {t('availability:allOwners')}
           </Label>
           
           <Popover>

@@ -25,6 +25,10 @@
     }
   },
   "sections": {
+    "executive": {
+      "title": "Direction",
+      "description": "Tableau de bord exécutif et indicateurs clés"
+    },
     "reservations": {
       "title": "Réservations",
       "description": "Gérez vos réservations et disponibilités"

@@ -25,6 +25,10 @@
     }
   },
   "sections": {
+    "executive": {
+      "title": "الإدارة التنفيذية",
+      "description": "لوحة تحكم تنفيذية ومؤشرات أداء رئيسية"
+    },
     "reservations": {
       "title": "الحجوزات",
       "description": "أدر حجوزاتك والتوفر"

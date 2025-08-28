@@ -5,7 +5,7 @@ import { updateOwner } from "@/app/actions/owners"
 
 export default async function EditOwnerPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  await requireRole(["admin"])
+  await requireRole(["admin", "manager"])
   const supabase = await createClient()
 
   const { data: owner, error } = await supabase

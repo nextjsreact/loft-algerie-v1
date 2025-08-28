@@ -3,7 +3,9 @@ import { redirect } from "next/navigation"
 import { OwnerForm } from "@/components/forms/owner-form"
 import { createOwner } from "@/app/actions/owners"
 
-export default function NewOwnerPage() {
+export default async function NewOwnerPage() {
+  await requireRole(["admin", "manager"])
+  
   return (
     <div className="space-y-6">
       <div>

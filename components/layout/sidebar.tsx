@@ -41,7 +41,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
     { name: t('availability'), href: "/availability", icon: CalendarCheck, roles: ["admin", "manager"] },
     { name: t('tasks'), href: "/tasks", icon: ClipboardList, roles: ["admin", "manager", "member"] },
     { name: t('teams'), href: "/teams", icon: Users, roles: ["admin", "manager"] },
-    { name: t('owners'), href: "/owners", icon: UserCheck, roles: ["admin"] },
+    { name: t('nav:owners'), href: "/owners", icon: UserCheck, roles: ["admin", "manager"] },
     { name: t('transactions'), href: "/transactions", icon: DollarSign, roles: ["admin", "manager"] },
     { name: t('reports'), href: "/reports", icon: Calendar, roles: ["admin", "manager"] },
     { 

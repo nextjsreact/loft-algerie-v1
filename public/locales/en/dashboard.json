@@ -62,5 +62,56 @@
   },
   "lofts": {
     "addLoft": "Add Loft"
+  },
+  "memberTitle": "My Dashboard",
+  "memberSubtitle": "Manage your tasks, notifications and conversations",
+  "myTasks": "My Tasks",
+  "completedTasks": "Completed Tasks",
+  "notifications": "Notifications",
+  "conversations": "Conversations",
+  "unread": "Unread",
+  "newMessages": "new messages",
+  "viewDetails": "View details",
+  "latestUpdates": "Latest updates",
+  "recentConversations": "Recent Conversations",
+  "teamMessages": "Messages and team discussions",
+  "loadingError": "Error loading data",
+  "mockData": {
+    "me": "Me",
+    "tasks": {
+      "monthlyCleaningHydra": "Monthly Cleaning - Hydra Loft",
+      "equipmentCheck": "Equipment Verification",
+      "monthlyReport": "Monthly Report",
+      "preventiveMaintenance": "Preventive Maintenance"
+    },
+    "lofts": {
+      "artisticHydra": "Artistic Hydra Loft",
+      "modernDowntown": "Modern Downtown Loft",
+      "industrialKouba": "Industrial Kouba Loft"
+    },
+    "notifications": {
+      "newTaskAssigned": {
+        "title": "New Task Assigned",
+        "message": "A new maintenance task has been assigned to you for Hydra Loft"
+      },
+      "taskDueSoon": {
+        "title": "Task Due Soon",
+        "message": "The 'Monthly Cleaning' task is due in 2 days"
+      },
+      "taskCompleted": {
+        "title": "Task Completed",
+        "message": "Your monthly report has been approved"
+      }
+    },
+    "conversations": {
+      "maintenanceTeam": {
+        "title": "Maintenance Team",
+        "lastMessage": "Thanks for the report, everything looks good"
+      },
+      "techSupport": {
+        "title": "Technical Support",
+        "lastMessage": "The issue has been resolved, thank you"
+      }
+    }
   }
 }

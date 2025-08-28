@@ -5,6 +5,7 @@
   "owners": {
     "ownershipType": "Ownership Type"
   },
+  "allOwners": "All Owners",
   "selectOption": "Select an option",
   "error": "Error",
   "systemError": "System Error",

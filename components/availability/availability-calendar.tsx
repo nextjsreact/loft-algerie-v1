@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { ChevronLeft, ChevronRight, Calendar, Eye, BookOpen, Phone } from 'lucide-react'
 import { format, addDays, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay } from 'date-fns'
-import { fr } from 'date-fns/locale'
+import { fr, enUS, ar } from 'date-fns/locale'
 
 interface AvailabilityCalendarProps {
   data: any[]
@@ -17,9 +17,22 @@ interface AvailabilityCalendarProps {
 }
 
 export function AvailabilityCalendar({ data, filters, isLoading }: AvailabilityCalendarProps) {
-  const { t } = useTranslation(['availability', 'common'])
+  const { t, language } = useTranslation(['availability', 'common'])
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedLoft, setSelectedLoft] = useState<string | null>(null)
+
+  // Get the appropriate date-fns locale based on current language
+  const getDateLocale = () => {
+    switch (language) {
+      case 'ar':
+        return ar
+      case 'en':
+        return enUS
+      case 'fr':
+      default:
+        return fr
+    }
+  }
 
   const monthStart = startOfMonth(currentMonth)
   const monthEnd = endOfMonth(currentMonth)
@@ -90,7 +103,7 @@ export function AvailabilityCalendar({ data, filters, isLoading }: AvailabilityC
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <h3 className="text-lg font-semibold">
-            {format(currentMonth, 'MMMM yyyy', { locale: fr })}
+            {format(currentMonth, 'MMMM yyyy', { locale: getDateLocale() })}
           </h3>
           <div className="flex items-center gap-2">
             <Button
@@ -180,7 +193,10 @@ export function AvailabilityCalendar({ data, filters, isLoading }: AvailabilityC
             <CardContent>
               <div className="grid grid-cols-7 gap-1">
                 {/* Day headers */}
-                {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((day) => (
+                {Array.from({ length: 7 }, (_, i) => {
+                  const date = new Date(2024, 0, 1 + i) // Start from Monday
+                  return format(date, 'EEE', { locale: getDateLocale() })
+                }).map((day) => (
                   <div key={day} className="p-2 text-center text-sm font-medium text-muted-foreground">
                     {day}
                   </div>
@@ -218,7 +234,7 @@ export function AvailabilityCalendar({ data, filters, isLoading }: AvailabilityC
                         </TooltipTrigger>
                         <TooltipContent>
                           <div className="space-y-1">
-                            <p className="font-medium">{format(day, 'dd MMMM yyyy', { locale: fr })}</p>
+                            <p className="font-medium">{format(day, 'dd MMMM yyyy', { locale: getDateLocale() })}</p>
                             <p className="text-sm">{getStatusText(dayStatus)}</p>
                             <p className="text-sm">{loft.pricePerNight.toLocaleString()} DA</p>
                           </div>

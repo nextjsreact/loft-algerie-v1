@@ -5,6 +5,7 @@
   "owners": {
     "ownershipType": "Type de propriété"
   },
+  "allOwners": "Tous les propriétaires",
   "selectOption": "Sélectionner une option",
   "error": "Erreur",
   "systemError": "Erreur système",

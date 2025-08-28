@@ -34,6 +34,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from "
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { format } from "date-fns";
 import { useTranslation } from "@/lib/i18n/context";
+import { MemberDashboard } from "./member-dashboard";
 
 type UtilityType = "eau" | "energie" | "telephone" | "internet" | "tv" | "gas";
 
@@ -116,8 +117,21 @@ const UTILITY_CONFIG = {
 
 // Utiliser directement le système de traduction existant
 
-export function ModernDashboard() {
+interface ModernDashboardProps {
+  userRole?: string;
+}
+
+export function ModernDashboard({ userRole = 'member' }: ModernDashboardProps) {
   const { t } = useTranslation();
+  
+  // Si l'utilisateur est un membre, afficher le dashboard simplifié
+  if (userRole === 'member') {
+    return <MemberDashboard />;
+  }
+  
+  // Définir les données sensibles selon le rôle
+  const canViewFinancialData = ['admin', 'manager', 'executive'].includes(userRole);
+  const canViewAllStats = ['admin', 'manager'].includes(userRole);
   
   // Utiliser directement le système de traduction existant
   const [upcomingBills, setUpcomingBills] = useState<BillAlert[]>([]);
@@ -349,36 +363,40 @@ export function ModernDashboard() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-blue-100 text-sm font-medium">{t("dashboard:totalLofts")}</p>
-                <p className="text-3xl font-bold">{stats.totalLofts}</p>
-                <p className="text-blue-100 text-xs mt-1">
-                  {stats.occupiedLofts} {t("dashboard:occupiedLofts")}
-                </p>
-              </div>
-              <Building2 className="h-8 w-8 text-blue-200" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-0 shadow-lg bg-gradient-to-br from-green-500 to-green-600 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-green-100 text-sm font-medium">{t("dashboard:monthlyRevenue")}</p>
-                <p className="text-3xl font-bold">${stats.monthlyRevenue.toLocaleString()}</p>
-                <div className="flex items-center text-green-100 text-xs mt-1">
-                  <ArrowUpRight className="h-3 w-3 mr-1" />
-                  +12% {t("dashboard:thisMonth")}
+        {canViewAllStats && (
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-blue-100 text-sm font-medium">{t("dashboard:totalLofts")}</p>
+                  <p className="text-3xl font-bold">{stats.totalLofts}</p>
+                  <p className="text-blue-100 text-xs mt-1">
+                    {stats.occupiedLofts} {t("dashboard:occupiedLofts")}
+                  </p>
                 </div>
+                <Building2 className="h-8 w-8 text-blue-200" />
               </div>
-              <DollarSign className="h-8 w-8 text-green-200" />
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        )}
+
+        {canViewFinancialData && (
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-green-500 to-green-600 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-green-100 text-sm font-medium">{t("dashboard:monthlyRevenue")}</p>
+                  <p className="text-3xl font-bold">${stats.monthlyRevenue.toLocaleString()}</p>
+                  <div className="flex items-center text-green-100 text-xs mt-1">
+                    <ArrowUpRight className="h-3 w-3 mr-1" />
+                    +12% {t("dashboard:thisMonth")}
+                  </div>
+                </div>
+                <DollarSign className="h-8 w-8 text-green-200" />
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white">
           <CardContent className="p-6">
@@ -395,20 +413,22 @@ export function ModernDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-lg bg-gradient-to-br from-orange-500 to-red-500 text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-orange-100 text-sm font-medium">{t("dashboard:bills.title")}</p>
-                <p className="text-3xl font-bold">{stats.upcomingBills + stats.overdueBills}</p>
-                <p className="text-orange-100 text-xs mt-1">
-                  {stats.overdueBills} {t("dashboard:overdue")}
-                </p>
+        {canViewAllStats && (
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-orange-500 to-red-500 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-orange-100 text-sm font-medium">{t("dashboard:bills.title")}</p>
+                  <p className="text-3xl font-bold">{stats.upcomingBills + stats.overdueBills}</p>
+                  <p className="text-orange-100 text-xs mt-1">
+                    {stats.overdueBills} {t("dashboard:overdue")}
+                  </p>
+                </div>
+                <AlertTriangle className="h-8 w-8 text-orange-200" />
               </div>
-              <AlertTriangle className="h-8 w-8 text-orange-200" />
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {/* Bill Monitoring Stats */}
@@ -660,8 +680,9 @@ export function ModernDashboard() {
 
       {/* Revenue Chart and Recent Tasks */}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-7">
-        {/* Revenue Chart */}
-        <Card className="lg:col-span-4 border-0 shadow-xl">
+        {/* Revenue Chart - Only for financial data viewers */}
+        {canViewFinancialData && (
+          <Card className="lg:col-span-4 border-0 shadow-xl">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl font-bold">
               <BarChart3 className="h-6 w-6 text-blue-600" />
@@ -707,9 +728,10 @@ export function ModernDashboard() {
             </ChartContainer>
           </CardContent>
         </Card>
+        )}
 
         {/* Recent Tasks */}
-        <Card className="lg:col-span-3 border-0 shadow-xl">
+        <Card className={`${canViewFinancialData ? 'lg:col-span-3' : 'lg:col-span-7'} border-0 shadow-xl`}>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl font-bold">
               <ClipboardList className="h-6 w-6 text-purple-600" />

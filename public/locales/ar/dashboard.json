@@ -63,5 +63,56 @@
   },
   "lofts": {
     "addLoft": "إضافة شقة"
+  },
+  "memberTitle": "لوحة التحكم الخاصة بي",
+  "memberSubtitle": "إدارة مهامك وإشعاراتك ومحادثاتك",
+  "myTasks": "مهامي",
+  "completedTasks": "المهام المكتملة",
+  "notifications": "الإشعارات",
+  "conversations": "المحادثات",
+  "unread": "غير مقروءة",
+  "newMessages": "رسائل جديدة",
+  "viewDetails": "عرض التفاصيل",
+  "latestUpdates": "آخر التحديثات",
+  "recentConversations": "المحادثات الأخيرة",
+  "teamMessages": "الرسائل ومناقشات الفريق",
+  "loadingError": "خطأ في تحميل البيانات",
+  "mockData": {
+    "me": "أنا",
+    "tasks": {
+      "monthlyCleaningHydra": "التنظيف الشهري - لوفت حيدرة",
+      "equipmentCheck": "فحص المعدات",
+      "monthlyReport": "التقرير الشهري",
+      "preventiveMaintenance": "الصيانة الوقائية"
+    },
+    "lofts": {
+      "artisticHydra": "لوفت حيدرة الفني",
+      "modernDowntown": "لوفت وسط المدينة العصري",
+      "industrialKouba": "لوفت القوبة الصناعي"
+    },
+    "notifications": {
+      "newTaskAssigned": {
+        "title": "مهمة جديدة مُسندة",
+        "message": "تم إسناد مهمة صيانة جديدة لك في لوفت حيدرة"
+      },
+      "taskDueSoon": {
+        "title": "مهمة مستحقة قريباً",
+        "message": "مهمة 'التنظيف الشهري' مستحقة خلال يومين"
+      },
+      "taskCompleted": {
+        "title": "مهمة مكتملة",
+        "message": "تم الموافقة على تقريرك الشهري"
+      }
+    },
+    "conversations": {
+      "maintenanceTeam": {
+        "title": "فريق الصيانة",
+        "lastMessage": "شكراً على التقرير، كل شيء يبدو جيداً"
+      },
+      "techSupport": {
+        "title": "الدعم التقني",
+        "lastMessage": "تم حل المشكلة، شكراً لك"
+      }
+    }
   }
 }

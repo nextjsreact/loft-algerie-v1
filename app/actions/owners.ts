@@ -23,7 +23,7 @@ export async function getOwners(): Promise<LoftOwner[]> {
 }
 
 export async function updateOwner(id: string, formData: FormData) {
-  await requireRole(["admin"])
+  await requireRole(["admin", "manager"])
 
   const supabase = await createClient() // Create client here
   const data = Object.fromEntries(formData)
@@ -50,7 +50,7 @@ export async function updateOwner(id: string, formData: FormData) {
 }
 
 export async function deleteOwner(id: string) {
-  await requireRole(["admin"])
+  await requireRole(["admin", "manager"])
 
   const supabase = await createClient() // Create client here
   const { error } = await supabase.from("loft_owners").delete().eq("id", id)
@@ -64,7 +64,7 @@ export async function deleteOwner(id: string) {
 }
 
 export async function createOwner(formData: FormData) {
-  await requireRole(["admin"])
+  await requireRole(["admin", "manager"])
 
   const supabase = await createClient() // Create client here
   const data = Object.fromEntries(formData)

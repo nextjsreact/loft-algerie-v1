@@ -55,7 +55,7 @@ i18n
     },
     interpolation: {
       escapeValue: false,
-    },
+    }
     // Amélioration de la gestion des clés manquantes
     saveMissing: process.env.NODE_ENV === 'development',
     missingKeyHandler: (lng, ns, key, fallbackValue) => {

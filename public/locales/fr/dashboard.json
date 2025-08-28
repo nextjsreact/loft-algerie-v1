@@ -62,5 +62,56 @@
   },
   "lofts": {
     "addLoft": "Ajouter Loft"
+  },
+  "memberTitle": "Mon Tableau de Bord",
+  "memberSubtitle": "Gérez vos tâches, notifications et conversations",
+  "myTasks": "Mes Tâches",
+  "completedTasks": "Tâches Terminées",
+  "notifications": "Notifications",
+  "conversations": "Conversations",
+  "unread": "Non lues",
+  "newMessages": "nouveaux messages",
+  "viewDetails": "Voir détails",
+  "latestUpdates": "Dernières mises à jour",
+  "recentConversations": "Conversations Récentes",
+  "teamMessages": "Messages et discussions d'équipe",
+  "loadingError": "Erreur lors du chargement des données",
+  "mockData": {
+    "me": "Moi",
+    "tasks": {
+      "monthlyCleaningHydra": "Nettoyage mensuel - Loft Hydra",
+      "equipmentCheck": "Vérification équipements",
+      "monthlyReport": "Rapport mensuel",
+      "preventiveMaintenance": "Maintenance préventive"
+    },
+    "lofts": {
+      "artisticHydra": "Loft Artistique Hydra",
+      "modernDowntown": "Loft Moderne Centre-Ville",
+      "industrialKouba": "Loft Industriel Kouba"
+    },
+    "notifications": {
+      "newTaskAssigned": {
+        "title": "Nouvelle tâche assignée",
+        "message": "Une nouvelle tâche de maintenance vous a été assignée pour le Loft Hydra"
+      },
+      "taskDueSoon": {
+        "title": "Tâche bientôt due",
+        "message": "La tâche 'Nettoyage mensuel' est due dans 2 jours"
+      },
+      "taskCompleted": {
+        "title": "Tâche complétée",
+        "message": "Votre rapport mensuel a été approuvé"
+      }
+    },
+    "conversations": {
+      "maintenanceTeam": {
+        "title": "Équipe Maintenance",
+        "lastMessage": "Merci pour le rapport, tout semble en ordre"
+      },
+      "techSupport": {
+        "title": "Support Technique",
+        "lastMessage": "Le problème a été résolu, merci"
+      }
+    }
   }
 }

@@ -2,11 +2,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { createClient } from "@/utils/supabase/server"
+import { requireRole } from "@/lib/auth"
 import { format } from "date-fns"
 import { DeleteOwnerButton } from "./delete-button"
 
 export default async function OwnerViewPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  await requireRole(["admin", "manager"])
   const supabase = await createClient()
   const { data: owner, error } = await supabase
     .from("loft_owners")
