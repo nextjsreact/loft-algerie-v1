@@ -1,7 +1,6 @@
 {
-  "admin": "Admin",
-  "manager": "Gérant",
+  "admin": "Administrateur",
+  "manager": "Gestionnaire",
   "member": "Membre",
-  "executive": "Direction",
-  "guest": "Invité"
+  "executive": "Directeur"
 }

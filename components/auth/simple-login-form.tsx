@@ -95,7 +95,6 @@ export function SimpleLoginForm() {
                   placeholder={t('auth.enterEmail')} 
                   {...register("email")} 
                   disabled={isLoading}
-                  className="bg-white"
                 />
                 {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
               </div>
@@ -109,13 +108,12 @@ export function SimpleLoginForm() {
                     placeholder={t('auth.enterPassword')}
                     {...register("password")}
                     disabled={isLoading}
-                    className="bg-white"
                   />
                   <Button
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent text-muted-foreground hover:text-foreground"
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={isLoading}
                   >

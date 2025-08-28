@@ -8,7 +8,7 @@ import { Building2, DollarSign, CheckSquare, Bell, ArrowRight } from "lucide-rea
 import Link from "next/link"
 
 export function SimpleLandingPage() {
-  const { t } = useSimpleTranslation()
+  const { t, language } = useSimpleTranslation()
   
   const features = [
     {
@@ -34,7 +34,7 @@ export function SimpleLandingPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+    <div key={language} className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
       {/* Header */}
       <header className="container mx-auto px-4 py-6">
         <div className="flex justify-between items-center">
@@ -83,7 +83,7 @@ export function SimpleLandingPage() {
       <section className="container mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            الميزات الأساسية
+            {t('landing.features.title')}
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -109,14 +109,14 @@ export function SimpleLandingPage() {
       <section className="container mx-auto px-4 py-20">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-            ابدأ الآن
+            {t('landing.cta.title')}
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            قم بتبسيط إدارة عقاراتك مع منصتنا الشاملة للوft والحجوزات والتتبع المالي.
+            {t('landing.cta.description')}
           </p>
           <Button asChild size="lg" className="text-lg px-8 py-3">
             <Link href="/register" className="flex items-center gap-2">
-              ابدأ الآن
+              {t('landing.cta.button')}
               <ArrowRight className="h-5 w-5" />
             </Link>
           </Button>
@@ -125,7 +125,7 @@ export function SimpleLandingPage() {
 
       {/* Footer */}
       <footer className="container mx-auto px-4 py-8 text-center text-gray-500 dark:text-gray-400">
-        <p>&copy; 2024 لوفت الجزائر. All rights reserved.</p>
+        <p>{t('landing.footer')}</p>
       </footer>
     </div>
   )

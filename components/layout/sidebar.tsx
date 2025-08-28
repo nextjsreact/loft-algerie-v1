@@ -17,7 +17,7 @@ import { LanguageSelector } from "@/components/ui/language-selector"
 import { NotificationBadge } from "@/components/ui/notification-badge"
 import { useEnhancedRealtime } from "@/components/providers/enhanced-realtime-provider"
 import { useNotifications } from "@/components/providers/notification-context"
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "@/lib/i18n/context"
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   user: User;
@@ -29,33 +29,33 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
   const [isSettingsOpen, setIsSettingsOpen] = useState(pathname?.startsWith('/settings') || false)
   const { unreadMessagesCount } = useEnhancedRealtime()
   const { unreadCount: realtimeUnreadCount } = useNotifications()
-  const { t } = useTranslation(['nav', 'roles', 'auth'])
+  const { t, language } = useTranslation()
 
   const navigation = [
-    { name: t('executive'), href: "/executive", icon: LayoutDashboard, roles: ["executive"], className: "bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold" },
-    { name: t('dashboard'), href: "/dashboard", icon: LayoutDashboard, roles: ["admin", "manager", "member"] },
-    { name: t('conversations'), href: "/conversations", icon: MessageSquare, roles: ["admin", "manager", "member", "executive"] },
-    { name: t('notifications'), href: "/notifications", icon: Bell, roles: ["admin", "manager", "member"] },
-    { name: t('lofts'), href: "/lofts", icon: Building2, roles: ["admin", "manager"] },
-    { name: t('reservations'), href: "/reservations", icon: Calendar, roles: ["admin", "manager"] },
-    { name: t('availability'), href: "/availability", icon: CalendarCheck, roles: ["admin", "manager"] },
-    { name: t('tasks'), href: "/tasks", icon: ClipboardList, roles: ["admin", "manager", "member"] },
-    { name: t('teams'), href: "/teams", icon: Users, roles: ["admin", "manager"] },
+    { name: t('nav:executive'), href: "/executive", icon: LayoutDashboard, roles: ["executive"], className: "bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold" },
+    { name: t('nav:dashboard'), href: "/dashboard", icon: LayoutDashboard, roles: ["admin", "manager", "member"] },
+    { name: t('nav:conversations'), href: "/conversations", icon: MessageSquare, roles: ["admin", "manager", "member", "executive"] },
+    { name: t('nav:notifications'), href: "/notifications", icon: Bell, roles: ["admin", "manager", "member"] },
+    { name: t('nav:lofts'), href: "/lofts", icon: Building2, roles: ["admin", "manager"] },
+    { name: t('nav:reservations'), href: "/reservations", icon: Calendar, roles: ["admin", "manager"] },
+    { name: t('nav:availability'), href: "/availability", icon: CalendarCheck, roles: ["admin", "manager"] },
+    { name: t('nav:tasks'), href: "/tasks", icon: ClipboardList, roles: ["admin", "manager", "member"] },
+    { name: t('nav:teams'), href: "/teams", icon: Users, roles: ["admin", "manager"] },
     { name: t('nav:owners'), href: "/owners", icon: UserCheck, roles: ["admin", "manager"] },
-    { name: t('transactions'), href: "/transactions", icon: DollarSign, roles: ["admin", "manager"] },
-    { name: t('reports'), href: "/reports", icon: Calendar, roles: ["admin", "manager"] },
+    { name: t('nav:transactions'), href: "/transactions", icon: DollarSign, roles: ["admin", "manager"] },
+    { name: t('nav:reports'), href: "/reports", icon: Calendar, roles: ["admin", "manager"] },
     { 
-      name: t('settings'), 
+      name: t('nav:settings'), 
       href: "/settings", 
       icon: Settings, 
       roles: ["admin", "manager"],
       subItems: [
-        { name: t('categories'), href: "/settings/categories", icon: ClipboardList, roles: ["admin"] },
-        { name: t('currencies'), href: "/settings/currencies", icon: DollarSign, roles: ["admin"] },
-        { name: t('zoneAreas'), href: "/settings/zone-areas", icon: Home, roles: ["admin"] },
-        { name: t('paymentMethods'), href: "/settings/payment-methods", icon: CreditCard, roles: ["admin"] },
-        { name: t('internetConnections'), href: "/settings/internet-connections", icon: Building2, roles: ["admin"] },
-        { name: t('application'), href: "/settings/application", icon: Settings, roles: ["admin"] }
+        { name: t('nav:categories'), href: "/settings/categories", icon: ClipboardList, roles: ["admin"] },
+        { name: t('nav:currencies'), href: "/settings/currencies", icon: DollarSign, roles: ["admin"] },
+        { name: t('nav:zoneAreas'), href: "/settings/zone-areas", icon: Home, roles: ["admin"] },
+        { name: t('nav:paymentMethods'), href: "/settings/payment-methods", icon: CreditCard, roles: ["admin"] },
+        { name: t('nav:internetConnections'), href: "/settings/internet-connections", icon: Building2, roles: ["admin"] },
+        { name: t('nav:application'), href: "/settings/application", icon: Settings, roles: ["admin"] }
       ]
     },
   ]
@@ -63,7 +63,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
   const filteredNavigation = navigation.filter((item) => item.roles.includes(user.role))
 
   return (
-    <div className={cn("flex h-full w-72 flex-col bg-gray-900 dark:bg-gray-900", className)}>
+    <div key={language} className={cn("flex h-full w-72 flex-col bg-gray-900 dark:bg-gray-900", className)}>
       <div className="flex h-16 shrink-0 items-center justify-between px-3 border-b border-gray-700 dark:border-gray-700">
         <Link href="/dashboard" className="flex items-center group min-w-0 flex-1">
           <div className="relative flex-shrink-0">
@@ -71,7 +71,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
             <div className="absolute -bottom-1 -right-1 h-2.5 w-2.5 rounded-full border-2 border-gray-900 bg-blue-500"></div>
           </div>
           <span className="ml-2 text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 truncate">
-            {t('loftManager')}
+            {t('nav:loftManager')}
           </span>
         </Link>
         <div className="flex items-center bg-gray-700/50 dark:bg-gray-800 rounded-md p-0.5 gap-0.5 flex-shrink-0">
@@ -164,7 +164,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
             <p className="text-sm font-medium text-white truncate">
               {user.full_name === 'member1' ? 'Membre 1' : user.full_name}
             </p>
-            <p className="text-xs text-gray-300 capitalize">{t(user.role, { ns: 'roles' })}</p>
+            <p className="text-xs text-gray-300 capitalize">{t(`roles:${user.role}`)}</p>
           </div>
         </div>
         <Button
@@ -174,7 +174,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
           onClick={() => logout()}
         >
           <LogOut className="mr-2 h-4 w-4" />
-          {t('signOut', { ns: 'auth' })}
+          {t('auth:signOut')}
         </Button>
       </div>
     </div>

@@ -1,26 +1,20 @@
 {
-  "currencies": {
-    "da": "DA"
-  },
-  "owners": {
-    "ownershipType": "Type de propriété"
-  },
-  "allOwners": "Tous les propriétaires",
-  "selectOption": "Sélectionner une option",
+  "loading": "Chargement...",
   "error": "Erreur",
-  "systemError": "Erreur système",
-  "view": "Voir",
-  "edit": "Modifier",
+  "success": "Succès",
   "cancel": "Annuler",
-  "viewReports": "Voir les rapports",
-  "lofts": {
-    "createNewLoft": "Créer un nouveau loft",
-    "addNewPropertyListing": "Ajouter une nouvelle annonce de propriété",
-    "loftCreatedSuccess": "Loft créé avec succès",
-    "loftCreatedSuccessDescription": "Votre loft a été créé avec succès.",
-    "errorCreatingLoft": "Erreur lors de la création du loft",
-    "errorCreatingLoftDescription": "Une erreur s'est produite lors de la création du loft.",
-    "systemError": "Erreur système",
-    "systemErrorDescription": "Une erreur système s'est produite."
-  }
+  "save": "Enregistrer",
+  "delete": "Supprimer",
+  "edit": "Modifier",
+  "add": "Ajouter",
+  "search": "Rechercher",
+  "filter": "Filtrer",
+  "sort": "Trier",
+  "actions": "Actions",
+  "status": "Statut",
+  "date": "Date",
+  "name": "Nom",
+  "description": "Description",
+  "yes": "Oui",
+  "no": "Non"
 }

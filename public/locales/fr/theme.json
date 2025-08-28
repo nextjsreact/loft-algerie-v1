@@ -1,7 +1,7 @@
 {
   "theme": {
-    "dark": "Sombre",
     "light": "Clair",
+    "dark": "Sombre",
     "system": "Système"
   }
 }

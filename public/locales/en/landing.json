@@ -69,5 +69,11 @@
   "systemStatus": {
     "title": "System Operational",
     "description": "All services are running normally. PDF report generation available."
-  }
+  },
+  "cta": {
+    "title": "Get Started Now",
+    "description": "Simplify your property management with our comprehensive platform for lofts, reservations and financial tracking.",
+    "button": "Get Started Now"
+  },
+  "footer": "© 2024 Loft Algeria. All rights reserved."
 }

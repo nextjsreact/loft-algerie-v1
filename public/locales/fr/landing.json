@@ -69,5 +69,11 @@
   "systemStatus": {
     "title": "Système Opérationnel",
     "description": "Tous les services fonctionnent normalement. Génération de rapports PDF disponible."
-  }
+  },
+  "cta": {
+    "title": "Commencez Maintenant",
+    "description": "Simplifiez la gestion de vos propriétés avec notre plateforme complète pour les lofts, réservations et suivi financier.",
+    "button": "Commencer Maintenant"
+  },
+  "footer": "© 2024 Loft Algérie. Tous droits réservés."
 }

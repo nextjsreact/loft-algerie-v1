@@ -1,7 +1,6 @@
 {
-  "admin": "مسؤول",
+  "admin": "مدير",
   "manager": "مدير",
   "member": "عضو",
-  "executive": "تنفيذي",
-  "guest": "ضيف"
+  "executive": "تنفيذي"
 }

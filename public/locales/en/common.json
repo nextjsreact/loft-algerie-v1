@@ -1,16 +1,20 @@
 {
-  "currencies": {
-    "da": "DA"
-  },
-  "owners": {
-    "ownershipType": "Ownership Type"
-  },
-  "allOwners": "All Owners",
-  "selectOption": "Select an option",
+  "loading": "Loading...",
   "error": "Error",
-  "systemError": "System Error",
-  "view": "View",
-  "edit": "Edit",
+  "success": "Success",
   "cancel": "Cancel",
-  "viewReports": "View Reports"
+  "save": "Save",
+  "delete": "Delete",
+  "edit": "Edit",
+  "add": "Add",
+  "search": "Search",
+  "filter": "Filter",
+  "sort": "Sort",
+  "actions": "Actions",
+  "status": "Status",
+  "date": "Date",
+  "name": "Name",
+  "description": "Description",
+  "yes": "Yes",
+  "no": "No"
 }
