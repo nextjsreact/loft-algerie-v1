@@ -1,4 +1,4 @@
-export function getOptions(lng = 'fr', ns = ['common', 'auth', 'landing', 'bills', 'lofts', 'owners', 'teams', 'reservations', 'transactions', 'analytics', 'conversations', 'dashboard', 'executive', 'internetConnections', 'nav', 'notifications', 'paymentMethods', 'reports', 'settings', 'tasks', 'test', 'testSound', 'testTranslations', 'theme', 'unauthorized', 'zoneAreas']) {
+export function getOptions(lng = 'fr', ns = ['common', 'auth', 'landing', 'bills', 'lofts', 'owners', 'teams', 'reservations', 'transactions', 'analytics', 'conversations', 'dashboard', 'executive', 'internetConnections', 'nav', 'notifications', 'paymentMethods', 'reports', 'settings', 'tasks', 'test', 'testSound', 'testTranslations', 'theme', 'unauthorized', 'zoneAreas', 'photos', 'availability']) {
   return {
     debug: true,
     supportedLngs: ['en', 'fr', 'ar'],
@@ -8,7 +8,7 @@ export function getOptions(lng = 'fr', ns = ['common', 'auth', 'landing', 'bills
     defaultNS: 'common',
     ns,
     backend: {
-      loadPath: process.cwd() + '/public/locales/{{lng}}/{{ns}}.json',
+      loadPath: '/locales/{{lng}}/{{ns}}.json', // Generic path, will be overridden for server
       requestOptions: {
         cache: process.env.NODE_ENV === 'production' ? 'default' : 'no-cache',
       },

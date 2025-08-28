@@ -11,6 +11,7 @@
   "view": "Voir",
   "edit": "Modifier",
   "cancel": "Annuler",
+  "viewReports": "Voir les rapports",
   "lofts": {
     "createNewLoft": "Créer un nouveau loft",
     "addNewPropertyListing": "Ajouter une nouvelle annonce de propriété",

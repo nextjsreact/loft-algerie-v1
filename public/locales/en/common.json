@@ -10,5 +10,6 @@
   "systemError": "System Error",
   "view": "View",
   "edit": "Edit",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "viewReports": "View Reports"
 }
