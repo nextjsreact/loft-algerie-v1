@@ -1,0 +1,13 @@
+{
+  "deleteSuccess": "Photo supprimée avec succès",
+  "deleteError": "Erreur lors de la suppression",
+  "dragDropText": "Glissez et déposez les photos ici",
+  "supportedFormats": "Formats supportés : JPG, PNG, GIF",
+  "selectPhotos": "Sélectionner des photos",
+  "deletePhoto": "Supprimer la photo",
+  "uploading": "Téléchargement en cours...",
+  "confirmDelete": "Confirmer la suppression",
+  "confirmDeleteDescription": "Êtes-vous sûr de vouloir supprimer cette photo ?",
+  "willBeDeleted": "Cette photo sera définitivement supprimée",
+  "cancel": "Annuler"
+}

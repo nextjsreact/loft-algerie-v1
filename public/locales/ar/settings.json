@@ -1,0 +1,59 @@
+{
+  "title": "الإعدادات",
+  "subtitle": "إدارة إعدادات التطبيق والتفضيلات",
+  "categories": {
+    "subtitle": "إدارة فئات المعاملات",
+    "addNew": "إضافة فئة جديدة",
+    "editCategory": "تعديل الفئة",
+    "createCategory": "إنشاء فئة",
+    "updateCategoryInfo": "تحديث معلومات الفئة",
+    "createNewCategory": "إنشاء فئة معاملات جديدة",
+    "categoryDetails": "تفاصيل الفئة",
+    "enterCategoryInfo": "أدخل معلومات الفئة أدناه",
+    "categoryName": "اسم الفئة",
+    "categoryType": "نوع الفئة",
+    "description": "الوصف",
+    "namePlaceholder": "أدخل اسم الفئة",
+    "descriptionPlaceholder": "أدخل وصف الفئة (اختياري)",
+    "selectType": "اختر نوع الفئة",
+    "saveChanges": "حفظ التغييرات",
+    "categoryCreated": "تم إنشاء الفئة '{name}' بنجاح",
+    "categoryUpdated": "تم تحديث الفئة '{name}' بنجاح",
+    "saveError": "فشل في حفظ الفئة - يرجى المحاولة مرة أخرى",
+    "incomeCategories": "فئات الدخل",
+    "expenseCategories": "فئات المصروفات",
+    "manageCategoriesIncome": "فئات معاملات الدخل",
+    "manageCategoriesExpense": "فئات معاملات المصروفات",
+    "noIncomeCategories": "لا توجد فئات دخل",
+    "noExpenseCategories": "لا توجد فئات مصروفات",
+    "allCategories": "جميع الفئات",
+    "totalCategories": "المجموع: {count} فئة",
+    "deleteConfirm": "هل أنت متأكد من أنك تريد حذف هذه الفئة؟"
+  },
+  "currencies": {
+    "subtitle": "إدارة العملات للمعاملات",
+    "addNew": "إضافة عملة جديدة",
+    "defaultCurrency": "العملة الافتراضية",
+    "defaultCurrencyDesc": "هذه العملة تُستخدم كافتراضية لجميع المعاملات",
+    "default": "افتراضي",
+    "allCurrencies": "جميع العملات",
+    "totalCurrencies": "المجموع: {count} عملة",
+    "noCurrenciesFound": "لا توجد عملات",
+    "addFirstCurrency": "أضف عملتك الأولى للبدء",
+    "setAsDefault": "تعيين كافتراضي"
+  },
+  "paymentMethods": {
+    "subtitle": "إدارة طرق الدفع",
+    "addPaymentMethod": "إضافة طريقة دفع",
+    "existingMethods": "طرق الدفع الموجودة",
+    "totalMethods": "المجموع: {count} طريقة دفع",
+    "noMethodsFound": "لا توجد طرق دفع",
+    "addFirstMethod": "أضف طريقة الدفع الأولى للبدء",
+    "additionalDetails": "تفاصيل إضافية متاحة",
+    "createdOn": "تم الإنشاء في"
+  },
+  "zones": {
+    "title": "المناطق",
+    "subtitle": "إدارة المناطق الجغرافية"
+  }
+}

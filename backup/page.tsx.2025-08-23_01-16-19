@@ -1,0 +1,160 @@
+export default function HomePage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="container mx-auto px-4 py-16">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            Loft Algérie
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Système de gestion immobilière avec génération de rapports PDF professionnels
+          </p>
+        </div>
+
+        {/* Navigation Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-blue-600 text-xl">🏢</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Gestion des Lofts</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Gérez vos propriétés immobilières
+              </p>
+              <a 
+                href="/lofts" 
+                className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+              >
+                Voir les Lofts
+              </a>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-green-600 text-xl">💰</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Transactions</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Suivez vos revenus et dépenses
+              </p>
+              <a 
+                href="/transactions" 
+                className="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
+              >
+                Voir Transactions
+              </a>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-purple-600 text-xl">📊</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Rapports PDF</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Générez des rapports professionnels
+              </p>
+              <a 
+                href="/reports" 
+                className="inline-block bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors"
+              >
+                Générer Rapports
+              </a>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-orange-600 text-xl">👥</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Propriétaires</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Gérez vos relations clients
+              </p>
+              <a 
+                href="/loft-owners" 
+                className="inline-block bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 transition-colors"
+              >
+                Voir Propriétaires
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Features Section */}
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Système de Rapports PDF
+            </h2>
+            <p className="text-gray-600">
+              Générez des rapports professionnels en quelques clics
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-blue-600 text-2xl">🏢</span>
+              </div>
+              <h3 className="font-semibold mb-2">Rapport par Loft</h3>
+              <p className="text-sm text-gray-600">
+                Analyse détaillée d'un loft spécifique avec toutes ses transactions
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-green-600 text-2xl">👥</span>
+              </div>
+              <h3 className="font-semibold mb-2">Rapport par Propriétaire</h3>
+              <p className="text-sm text-gray-600">
+                Vue d'ensemble complète de tous les lofts d'un propriétaire
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-purple-600 text-2xl">📊</span>
+              </div>
+              <h3 className="font-semibold mb-2">Rapport Global</h3>
+              <p className="text-sm text-gray-600">
+                Analyse complète de tous les lofts avec statistiques avancées
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mt-8">
+            <a 
+              href="/reports" 
+              className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors"
+            >
+              📊 Accéder aux Rapports
+            </a>
+          </div>
+        </div>
+
+        {/* Status Section */}
+        <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+          <div className="flex items-center">
+            <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+            <div>
+              <h3 className="font-semibold text-green-800">
+                Système Opérationnel
+              </h3>
+              <p className="text-green-600 text-sm">
+                Tous les services fonctionnent normalement. Génération de rapports PDF disponible.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

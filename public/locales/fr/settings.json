@@ -1,0 +1,60 @@
+{
+  "title": "Gestion des Paramètres",
+  "subtitle": "Configurez et personnalisez les options de votre application.",
+  "categories": {
+    "subtitle": "Gérez et organisez toutes vos catégories de transactions.",
+    "organizeTransactions": "Organisez vos transactions en créant et gérant des catégories.",
+    "addNew": "Ajouter une Nouvelle",
+    "editCategory": "Modifier la Catégorie",
+    "createCategory": "Créer une Catégorie",
+    "updateCategoryInfo": "Mettre à jour les informations de la catégorie",
+    "createNewCategory": "Créer une nouvelle catégorie de transaction",
+    "categoryDetails": "Détails de la Catégorie",
+    "enterCategoryInfo": "Entrez les informations de la catégorie ci-dessous",
+    "categoryName": "Nom de la Catégorie",
+    "categoryType": "Type de Catégorie",
+    "description": "Description",
+    "namePlaceholder": "Entrez le nom de la catégorie",
+    "descriptionPlaceholder": "Entrez la description de la catégorie (optionnel)",
+    "selectType": "Sélectionnez le type de catégorie",
+    "saveChanges": "Enregistrer les Modifications",
+    "categoryCreated": "Catégorie '{name}' créée avec succès",
+    "categoryUpdated": "Catégorie '{name}' mise à jour avec succès",
+    "saveError": "Échec de l'enregistrement de la catégorie - veuillez réessayer",
+    "incomeCategories": "Catégories de Revenus",
+    "expenseCategories": "Catégories de Dépenses",
+    "manageCategoriesIncome": "Gérer les Catégories de Revenus",
+    "manageCategoriesExpense": "Gérer les Catégories de Dépenses",
+    "noIncomeCategories": "Aucune catégorie de revenus trouvée",
+    "noExpenseCategories": "Aucune catégorie de dépenses trouvée",
+    "allCategories": "Toutes les Catégories",
+    "totalCategories": "Total : {count} catégories",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette catégorie ?"
+  },
+  "currencies": {
+    "subtitle": "Gérez les devises pour vos transactions",
+    "addNew": "Ajouter une Nouvelle Devise",
+    "defaultCurrency": "Devise par Défaut",
+    "defaultCurrencyDesc": "Cette devise est utilisée par défaut pour toutes les transactions",
+    "default": "Par défaut",
+    "allCurrencies": "Toutes les Devises",
+    "totalCurrencies": "Total : {count} devises",
+    "noCurrenciesFound": "Aucune devise trouvée",
+    "addFirstCurrency": "Ajoutez votre première devise pour commencer",
+    "setAsDefault": "Définir par défaut"
+  },
+  "paymentMethods": {
+    "subtitle": "Gérez vos méthodes de paiement",
+    "addPaymentMethod": "Ajouter une Méthode de Paiement",
+    "existingMethods": "Méthodes de Paiement Existantes",
+    "totalMethods": "Total : {count} méthodes de paiement",
+    "noMethodsFound": "Aucune méthode de paiement trouvée",
+    "addFirstMethod": "Ajoutez votre première méthode de paiement pour commencer",
+    "additionalDetails": "Détails supplémentaires disponibles",
+    "createdOn": "Créé le"
+  },
+  "zones": {
+    "title": "Zones",
+    "subtitle": "Gérer les zones géographiques"
+  }
+}

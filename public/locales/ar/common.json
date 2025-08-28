@@ -1,0 +1,29 @@
+{
+  "currencies": {
+    "da": "دج"
+  },
+  "owners": {
+    "ownershipType": "نوع الملكية"
+  },
+  "selectOption": "اختر خياراً",
+  "error": "خطأ",
+  "systemError": "خطأ في النظام",
+  "view": "عرض",
+  "edit": "تعديل",
+  "cancel": "إلغاء",
+  "descriptions": {
+    "heavenLoft": "شقة هيفن لوفت",
+    "aidaLoft": "شقة عايدة لوفت",
+    "nadaLoft": "شقة ندى لوفت"
+  },
+  "lofts": {
+    "createNewLoft": "إنشاء شقة جديدة",
+    "addNewPropertyListing": "إضافة قائمة عقارات جديدة",
+    "loftCreatedSuccess": "تم إنشاء الشقة بنجاح",
+    "loftCreatedSuccessDescription": "تم إنشاء الشقة الخاصة بك بنجاح.",
+    "errorCreatingLoft": "خطأ في إنشاء الشقة",
+    "errorCreatingLoftDescription": "حدث خطأ أثناء إنشاء الشقة.",
+    "systemError": "خطأ في النظام",
+    "systemErrorDescription": "حدث خطأ في النظام."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "deleteSuccess": "تم حذف الصورة بنجاح",
+  "deleteError": "خطأ أثناء الحذف",
+  "dragDropText": "اسحب وأفلت الصور هنا",
+  "supportedFormats": "التنسيقات المدعومة: JPG ، PNG ، GIF",
+  "selectPhotos": "تحديد الصور",
+  "deletePhoto": "حذف الصورة",
+  "uploading": "يتم الرفع...",
+  "confirmDelete": "تأكيد الحذف",
+  "confirmDeleteDescription": "هل أنت متأكد أنك تريد حذف هذه الصورة؟",
+  "willBeDeleted": "سيتم حذف هذه الصورة نهائيًا",
+  "cancel": "إلغاء"
+}

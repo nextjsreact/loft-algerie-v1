@@ -1,0 +1,14 @@
+{
+  "currencies": {
+    "da": "DA"
+  },
+  "owners": {
+    "ownershipType": "Ownership Type"
+  },
+  "selectOption": "Select an option",
+  "error": "Error",
+  "systemError": "System Error",
+  "view": "View",
+  "edit": "Edit",
+  "cancel": "Cancel"
+}
